@@ -81,7 +81,9 @@ struct StartupConfig {
     )]
     page_question_max_length: usize,
 
-    /// The text to use for the URL where you will respond to questions, e.g "on Bluesky!".
+    /// The text to use for the URL where you will respond to questions.
+    ///
+    /// e.g. "[NAME] will respond to questions via [RESPOND TEXT]."
     #[clap(
         long = "page-question-respond-text",
         env = "FRAGEKASTEN_PAGE_QUESTION_RESPOND_TEXT"
