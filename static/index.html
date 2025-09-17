@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[TEMPLATE:PAGE_TITLE]</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="heading">
+            <h1>[TEMPLATE:PAGE_TITLE]</h1>
+            <p>[TEMPLATE:PAGE_OWNER_NAME] will respond to questions via <a
+                    href="[TEMPLATE:QUESTION_RESPOND_URL]">[TEMPLATE:QUESTION_RESPOND_TEXT]</a>.</p>
+        </div>
+        <div class="ask">
+            <form id="askForm">
+                <input id="content" placeholder="[TEMPLATE:PLACEHOLDER_QUESTION]" type="text" name="content"
+                    minlength="[TEMPLATE:QUESTION_MIN_LENGTH]" maxlength="[TEMPLATE:QUESTION_MAX_LENGTH]"
+                    autocomplete="off" required>
+                <button type="submit">Ask</button>
+                <small>Your question will be transmitted via the page owner's selected notification provider.
+                    Additionally, your question, IP address and user agent will be stored server-side for 3 days to
+                    combat
+                    abuse and spam; As long as you're kind, the owner of this page should have no need to look.
+                </small>
+                <small id="responseMessage"></small>
+            </form>
+        </div>
+
+    </div>
+    <footer>
+        <p><a href="https://codeberg.org/Blooym/fragekasten">Fragekasten</a> is made with ❤️ by <a
+                href="https://blooym.dev">Blooym</a>.</p>
+    </footer>
+    <style>
+        :root {
+            --background-colour: rgb(19, 19, 19);
+            --foreground-colour: white;
+            --highlight-colour: rgb(255, 171, 255);
+            --highlight-colour-hover: hsl(from var(--highlight-colour) h s 80%);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            color-scheme: dark;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--background-colour);
+            color: var(--foreground-colour);
+            padding: 1rem;
+        }
+
+        a {
+            color: var(--highlight-colour);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 520px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .heading {
+            margin-bottom: 1rem;
+
+            >h1,
+            p {
+                text-align: center;
+                margin: 0.5rem 0;
+            }
+        }
+
+        .footer {
+            margin-top: auto;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+
+            input[type="text"] {
+                padding: 0.75rem;
+                border: 1px solid #333;
+                border-radius: 4px;
+                background-color: #2a2a2a;
+                color: white;
+                font-size: 1rem;
+            }
+
+            input[type="text"]:focus {
+                outline: none;
+                border-color: var(--highlight-colour-hover);
+            }
+
+            button {
+                padding: 0.75rem;
+                background-color: var(--highlight-colour);
+                color: black;
+                border: none;
+                border-radius: 4px;
+                font-size: 1rem;
+                font-weight: bold;
+                cursor: pointer;
+                transition: background-color 0.2s;
+            }
+
+            button:hover {
+                background-color: var(--highlight-colour-hover);
+            }
+
+            button:disabled {
+                background-color: #666;
+                cursor: not-allowed;
+            }
+        }
+
+        #responseMessage {
+            min-height: 1.2em;
+            display: block;
+            margin-top: 0.5rem;
+        }
+
+        #responseMessage.success {
+            color: #4ade80;
+        }
+
+        #responseMessage.error {
+            color: #f87171;
+        }
+
+        #responseMessage.loading {
+            color: #94a3b8;
+        }
+    </style>
+    <script>
+        document.getElementById('askForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const questionContent = formData.get('content');
+            const responseMessageEle = document.getElementById('responseMessage');
+            const submitButtonEle = this.querySelector('button[type="submit"]');
+            const contentInputEle = document.getElementById('content');
+
+            responseMessageEle.textContent = 'Submitting...';
+            responseMessageEle.className = 'loading';
+            submitButtonEle.disabled = true;
+
+            try {
+                const response = await fetch('/api/asks', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ content: questionContent })
+                });
+
+                if (response.ok) {
+                    responseMessageEle.textContent = 'Your question has been sent successfully.';
+                    responseMessageEle.className = 'success';
+                    contentInputEle.value = '';
+                } else {
+                    console.error('Error:', response.status, response.statusText);
+                    responseMessageEle.textContent = `Error: ${response.status} ${response.statusText}`;
+                    responseMessageEle.className = 'error';
+                }
+            } catch (error) {
+                console.error('Network error:', error);
+                responseMessageEle.textContent = 'Network error. Please try again later.';
+                responseMessageEle.className = 'error';
+            } finally {
+                submitButtonEle.disabled = false;
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "DELETE FROM asks WHERE deleteAfter < $1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": []
+  },
+  "hash": "044f0d2c53f05105ef33a6a4c5f28866484ad408de2cc1a781cac446425f6e04"
+}

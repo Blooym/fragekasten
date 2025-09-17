@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "INSERT INTO asks (content, ipAddress, userAgent) VALUES (?, ?, ?)",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 3
+    },
+    "nullable": []
+  },
+  "hash": "cc65c238ba385292e340b4735081c5a8b52e410a90377dee382aca431c1c46ad"
+}
