@@ -61,7 +61,7 @@ struct StartupConfig {
     #[clap(long = "page-owner-name", env = "FRAGEKASTEN_PAGE_OWNER_NAME")]
     page_owner_name: String,
 
-    /// The title to use for the question's page.
+    /// The title to use for the questions page.
     #[clap(long = "page-title", env = "FRAGEKASTEN_PAGE_TITLE")]
     page_title: String,
 
