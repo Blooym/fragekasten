@@ -1,0 +1,12 @@
+services:
+  fragekasten:
+    container_name: fragekasten
+    build: .
+    restart: unless-stopped
+    ports:
+      - 6251:6251
+    volumes:
+      - fragekasten-data:/srv/fragekasten
+
+volumes:
+  fragekasten-data:
