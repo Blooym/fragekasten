@@ -65,6 +65,10 @@ struct StartupConfig {
     #[clap(long = "page-title", env = "FRAGEKASTEN_PAGE_TITLE")]
     page_title: String,
 
+    /// The description to use for the questions page. Supports inline HTML tags.
+    #[clap(long = "page-description", env = "FRAGEKASTEN_PAGE_DESCRIPTION")]
+    page_description: String,
+
     /// The minimum length a question is allowed to be.
     #[clap(
         long = "page-question-min-length",
@@ -80,22 +84,6 @@ struct StartupConfig {
         default_value_t = 300
     )]
     page_question_max_length: usize,
-
-    /// The text to use for the URL where you will respond to questions.
-    ///
-    /// e.g. "[NAME] will respond to questions via [RESPOND TEXT]."
-    #[clap(
-        long = "page-question-respond-text",
-        env = "FRAGEKASTEN_PAGE_QUESTION_RESPOND_TEXT"
-    )]
-    page_question_respond_text: String,
-
-    /// The URL to direct users to for seeing answers to questions.
-    #[clap(
-        long = "page-question-respond-url",
-        env = "FRAGEKASTEN_PAGE_QUESTION_RESPOND_URL"
-    )]
-    page_question_respond_url: Url,
 
     /// The placeholder text to use in the question ask box, this can be anything you want.
     #[clap(
@@ -114,10 +102,9 @@ struct AppState {
     discord_user_id: usize,
     page_owner_name: String,
     page_title: String,
+    page_description: String,
     page_question_min_length: usize,
     page_question_max_length: usize,
-    page_question_respond_text: String,
-    page_question_respond_url: Url,
     page_question_placeholder: String,
 }
 
@@ -138,10 +125,9 @@ async fn main() -> Result<()> {
         discord_user_id: args.discord_user_id,
         page_owner_name: args.page_owner_name,
         page_title: args.page_title,
+        page_description: args.page_description,
         page_question_min_length: args.page_question_min_length,
         page_question_max_length: args.page_question_max_length,
-        page_question_respond_text: args.page_question_respond_text,
-        page_question_respond_url: args.page_question_respond_url,
         page_question_placeholder: args.page_question_placeholder,
     };
     Database::spawn_cleanup_task(state.database.clone());
