@@ -9,6 +9,7 @@ pub async fn serve_index(State(state): State<AppState>) -> Html<&'static str> {
         include_str!("../../static/index.html")
             .replace("[TEMPLATE:PAGE_TITLE]", &state.page_title)
             .replace("[TEMPLATE:PAGE_DESCRIPTION]", &state.page_description)
+            .replace("[TEMPLATE:PAGE_THEME_COLOUR]", &state.page_theme_colour)
             .replace("[TEMPLATE:PAGE_OWNER_NAME]", &state.page_owner_name)
             .replace(
                 "[TEMPLATE:PLACEHOLDER_QUESTION]",

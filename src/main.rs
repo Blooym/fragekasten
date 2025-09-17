@@ -69,6 +69,16 @@ struct StartupConfig {
     #[clap(long = "page-description", env = "FRAGEKASTEN_PAGE_DESCRIPTION")]
     page_description: String,
 
+    /// The theme colour to use for the questions page. This can be a hex code, an rgb(x, x, x) or any other CSS-accepted format.
+    ///
+    /// You should pick a colour with good contrast on both light and dark backgrounds.
+    #[clap(
+        long = "page-theme-colour",
+        env = "FRAGEKASTEN_PAGE_THEME_COLOUR",
+        default_value = "#dc64ffff"
+    )]
+    page_theme_colour: String,
+
     /// The minimum length a question is allowed to be.
     #[clap(
         long = "page-question-min-length",
@@ -81,7 +91,7 @@ struct StartupConfig {
     #[clap(
         long = "page-question-max-length",
         env = "FRAGEKASTEN_PAGE_QUESTION_MAX_LENGTH",
-        default_value_t = 300
+        default_value_t = 150
     )]
     page_question_max_length: usize,
 
@@ -89,7 +99,7 @@ struct StartupConfig {
     #[clap(
         long = "page-question-placeholder",
         env = "FRAGEKASTEN_PAGE_QUESTION_PLACEHOLDER",
-        default_value = "Would you like to hold hands in the rain together?"
+        default_value = "Can we hold hands in the rain together?"
     )]
     page_question_placeholder: String,
 }
@@ -102,6 +112,7 @@ struct AppState {
     discord_user_id: usize,
     page_owner_name: String,
     page_title: String,
+    page_theme_colour: String,
     page_description: String,
     page_question_min_length: usize,
     page_question_max_length: usize,
@@ -126,6 +137,7 @@ async fn main() -> Result<()> {
         page_owner_name: args.page_owner_name,
         page_title: args.page_title,
         page_description: args.page_description,
+        page_theme_colour: args.page_theme_colour,
         page_question_min_length: args.page_question_min_length,
         page_question_max_length: args.page_question_max_length,
         page_question_placeholder: args.page_question_placeholder,

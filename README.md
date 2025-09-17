@@ -36,10 +36,10 @@ cargo install --git https://codeberg.org/Blooym/fragekasten.git
    Information about configuration options can be found in the
    [configuration](#configuration) section.
 
-4.  Run the binary either with environment variables set or with your desired configuration flags
-    ```
-    fragekasten <flags>
-    ```
+4. Run the binary either with environment variables set or with your desired configuration flags
+   ```
+   fragekasten <flags>
+   ```
 
 ## Configuration
 
@@ -54,6 +54,7 @@ Fragekasten is configured via command-line flags or environment variables and ha
 | Discord User ID           | Discord User ID (not name) to mention when sending asked questions                                                                                                                                                                                                                                                                                               | `--discord-user-id <DISCORD_USER_ID>`                     | `FRAGEKASTEN_DISCORD_USERID`            | -                                                      |
 | Page Title                | The title to use for the questions page                                                                                                                                                                                                                                                                                                                          | `--page-title`                                            | `FRAGEKASTEN_PAGE_TITLE`                | -                                                      |
 | Page Description          | The description to use for the questions page. Supports inline HTML tags.                                                                                                                                                                                                                                                                                        | `--page-description`                                      | `FRAGEKASTEN_PAGE_DESCRIPTION`          | -                                                      |
+| Page Theme Colour         | The theme colour to use for the questions page. This can be a hex code, an rgb(x, x, x) or any other CSS-accepted format. You should pick a colour with good contrast on both light and dark backgrounds.                                                                                                                                                        | `--page-theme-colour`                                     | `FRAGEKASTEN_PAGE_THEME_COLOUR`         | `#dc64ffff`                                            |
 | Page Owner Name           | The name of the owner of the page - you probably want to use your online username                                                                                                                                                                                                                                                                                | `--page-owner-name <PAGE_OWNER_NAME>`                     | `FRAGEKASTEN_PAGE_OWNER_NAME`           | -                                                      |
 | Page Question Min Length  | The minimum length a question is allowed to be                                                                                                                                                                                                                                                                                                                   | `--page-question-min-length <PAGE_QUESTION_MIN_LENGTH>`   | `FRAGEKASTEN_PAGE_QUESTION_MIN_LENGTH`  | `15`                                                   |
 | Page Question Max Length  | The maximum length a question is allowed to be                                                                                                                                                                                                                                                                                                                   | `--page-question-max-length <PAGE_QUESTION_MAX_LENGTH>`   | `FRAGEKASTEN_PAGE_QUESTION_MAX_LENGTH`  | `300`                                                  |

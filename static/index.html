@@ -38,10 +38,27 @@
     </footer>
     <style>
         :root {
-            --background-colour: rgb(19, 19, 19);
-            --foreground-colour: white;
-            --highlight-colour: rgb(255, 171, 255);
+            --background-colour: rgb(250, 250, 250);
+            --foreground-colour: rgb(33, 33, 33);
+            --input-background-colour: rgb(243, 243, 243);
+            --input-foreground-colour: black;
+            --highlight-colour: [TEMPLATE:PAGE_THEME_COLOUR];
             --highlight-colour-hover: hsl(from var(--highlight-colour) h s 80%);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background-colour: rgb(19, 19, 19);
+                --foreground-colour: white;
+                --input-background-colour: rgb(41, 41, 41);
+                --input-foreground-colour: white;
+                --highlight-colour: [TEMPLATE:PAGE_THEME_COLOUR];
+                --highlight-colour-hover: hsl(from var(--highlight-colour) h s 80%);
+            }
+
+            body {
+                color-scheme: dark;
+            }
         }
 
         * {
@@ -53,7 +70,6 @@
             height: 100%;
             width: 100%;
             margin: 0;
-            color-scheme: dark;
         }
 
         body {
@@ -69,6 +85,10 @@
 
         a {
             color: var(--highlight-colour);
+        }
+
+        a:hover {
+            color: var(--highlight-colour-hover);
         }
 
         .container {
@@ -103,8 +123,8 @@
                 padding: 0.75rem;
                 border: 1px solid #333;
                 border-radius: 4px;
-                background-color: #2a2a2a;
-                color: white;
+                background-color: var(--input-background-colour);
+                color: var(--input-foreground-colour);
                 font-size: 1rem;
             }
 
