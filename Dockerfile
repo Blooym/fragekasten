@@ -23,6 +23,7 @@ RUN mkdir src \
 ARG SQLX_OFFLINE true
 COPY ./migrations ./migrations
 COPY ./.sqlx ./.sqlx
+COPY static ./static
 COPY src ./src
 RUN cargo build --release
 
