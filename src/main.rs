@@ -54,7 +54,7 @@ struct StartupConfig {
     discord_webhook_url: Url,
 
     /// Discord User ID (not name) to mention when sending asked questions.
-    #[clap(long = "discord-user-id", env = "FRAGEKASTEN_DISCORD_USERID")]
+    #[clap(long = "discord-user-id", env = "FRAGEKASTEN_DISCORD_USER_ID")]
     discord_user_id: usize,
 
     /// The name of the owner of the page - you probably want to use your online username.
