@@ -26,7 +26,7 @@ pub async fn add_ask(
 
     // Validate content length.
     if content.len() < state.page_question_min_length
-        && content.len() > state.page_question_max_length
+        || content.len() > state.page_question_max_length
     {
         warn!("A question was submitted but it failed to validate length requirements, rejecting.");
         return StatusCode::BAD_REQUEST;
