@@ -20,7 +20,7 @@ pub async fn add_ask(
     TypedHeader(user_agent): TypedHeader<UserAgent>,
     Json(payload): Json<QuestionPayload>,
 ) -> StatusCode {
-    let content = strip_markdown(&payload.content);
+    let content = strip_markdown(payload.content.trim());
     let ip = ip.to_string();
     let user_agent = user_agent.as_str();
 

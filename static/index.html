@@ -177,10 +177,16 @@
         document.getElementById('askForm').addEventListener('submit', async function (e) {
             e.preventDefault();
             const formData = new FormData(this);
-            const questionContent = formData.get('content');
+            const questionContent = formData.get('content').trim();
             const responseMessageEle = document.getElementById('responseMessage');
             const submitButtonEle = this.querySelector('button[type="submit"]');
             const contentInputEle = document.getElementById('content');
+
+            if (!questionContent) {
+                responseMessageEle.textContent = 'Question content cannot be empty.';
+                responseMessageEle.className = 'error';
+                return;
+            }
 
             responseMessageEle.textContent = 'Submitting...';
             responseMessageEle.className = 'loading';
